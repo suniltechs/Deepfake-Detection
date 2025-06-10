@@ -82,9 +82,11 @@ st.markdown("""
         -webkit-text-fill-color: transparent;
         font-size: 2.5rem;
         font-weight: 800;
-        margin-bottom: 0.5rem;
+        margin-bottom: 1.5rem;
         text-align: center;
+        margin-left 50px;
     }
+    
 
     .subheader {
         color: var(--primary) !important;
@@ -180,6 +182,27 @@ st.markdown("""
     .stSidebar {
         background-color: var(--card-bg) !important;
     }
+    
+    /* Sidebar text elements */
+    .stSidebar .stMarkdown {
+        color: var(--text) !important;
+    }
+    
+    .stSidebar .stRadio label {
+        color: var(--text) !important;
+    }
+    
+    .stSidebar .stSlider label {
+        color: var(--text) !important;
+    }
+    
+    .stSidebar .stTextInput label {
+        color: var(--text) !important;
+    }
+    
+    .stSidebar .stExpander label {
+        color: var(--text) !important;
+    }
 
     /* Dark mode toggle */
     .toggle-container {
@@ -191,7 +214,7 @@ st.markdown("""
 
     .toggle-label {
         font-weight: 500;
-        color: var(--text);
+        color: var(--text) !important;
     }
 
     .toggle-switch {
@@ -355,29 +378,42 @@ st.markdown("""
         localStorage.setItem('theme', theme);
     }
     
-    // Check for saved theme or use system preference
-    const savedTheme = localStorage.getItem('theme');
-    const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    
-    if (savedTheme) {
-        setTheme(savedTheme);
-        document.getElementById('theme-toggle').checked = (savedTheme === 'dark');
-    } else if (systemPrefersDark) {
-        setTheme('dark');
-        document.getElementById('theme-toggle').checked = true;
-    } else {
-        setTheme('light');
-        document.getElementById('theme-toggle').checked = false;
-    }
-    
-    // Toggle theme when switch is clicked
-    document.getElementById('theme-toggle').addEventListener('change', function() {
-        if (this.checked) {
+    // Initialize theme toggle
+    function initTheme() {
+        const themeToggle = document.getElementById('theme-toggle');
+        if (!themeToggle) {
+            setTimeout(initTheme, 100);
+            return;
+        }
+        
+        // Check for saved theme or use system preference
+        const savedTheme = localStorage.getItem('theme');
+        const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        
+        if (savedTheme) {
+            setTheme(savedTheme);
+            themeToggle.checked = (savedTheme === 'dark');
+        } else if (systemPrefersDark) {
             setTheme('dark');
+            themeToggle.checked = true;
         } else {
             setTheme('light');
+            themeToggle.checked = false;
         }
-    });
+        
+        // Toggle theme when switch is clicked
+        themeToggle.addEventListener('change', function() {
+            if (this.checked) {
+                setTheme('dark');
+            } else {
+                setTheme('light');
+            }
+        });
+    }
+    
+    // Initialize when page loads
+    document.addEventListener('DOMContentLoaded', initTheme);
+    initTheme();
 </script>
 """, unsafe_allow_html=True)
 
@@ -486,7 +522,7 @@ def main():
     # Hero section
     st.markdown("""
     <div style="text-align: center; margin-bottom: 2rem;">
-        <h1 class="header">DeepGuard</h1>
+        <h1 class="header" style="padding-left: 2rem">DeepGuard</h1>
         <p style="font-size: 1.1rem; color: var(--text-muted); max-width: 800px; margin: 0 auto;">
             Advanced AI-powered deepfake detection of manipulated media with state-of-the-art neural networks.
             Upload images or videos to analyze for deepfake content.
@@ -502,7 +538,7 @@ def main():
             
             with col1:
                 st.markdown("""
-                <div  class="upload-area">
+                <div class="upload-area">
                     <div class="upload-icon">📁</div>
                     <h3>Upload Image</h3>
                     <p style="color: var(--text-muted);">Supported formats: JPG, JPEG, PNG</p>
@@ -766,7 +802,7 @@ def main():
     <div class="footer">
         <div>
             Developed by <strong>Sunil Sowrirajan</strong> &copy; 2025 <span id="year"></span> |
-            <a href="linkedin.com/in/sunil-sowrirajan-40548826b" target="_blank" title="LinkedIn">
+            <a href="https://www.linkedin.com/in/sunil-sowrirajan-40548826b/" target="_blank" title="LinkedIn">
                 <i class="fab fa-linkedin social-icon"></i>
             </a>
             <a href="https://github.com/suniltechs" target="_blank" title="GitHub">
@@ -778,8 +814,6 @@ def main():
         document.getElementById("year").textContent = new Date().getFullYear();
     </script>
     """, unsafe_allow_html=True)
-
-
 
 if __name__ == "__main__":
     main()
