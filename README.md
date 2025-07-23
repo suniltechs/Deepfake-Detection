@@ -15,7 +15,7 @@
 
 An AI-powered web app that detects deepfake images/videos using **MesoNet** and **Hugging Face Transformers**, deployed via Streamlit.
 
-![Demo](https://deepguard-g8tg.onrender.com/)
+🔗 [Live Demo](https://deepguard-g8tg.onrender.com/)
 
 ## 🌟 Features
 
@@ -40,8 +40,8 @@ An AI-powered web app that detects deepfake images/videos using **MesoNet** and 
 ### Installation
 1. Clone the repo:
    ```bash
-   git clone https://github.com/yourusername/deepfake_detection_system.git
-   cd deepfake_detection_system
+   git clone https://github.com/suniltechs/Deepfake-Detection.git
+   cd Deepfake-Detection
   
 2. Create a virtual environment:
    ```
