@@ -1,9 +1,22 @@
-# Virtual environment
+# Python
+__pycache__/
+*.py[cod]
 venv/
-
+.venv/
 
 # Environment variables
 .env
 
+# Large media / test fixtures
 video/
 test/
+debug_frames/
+
+# Node / frontend
+node_modules/
+dist/
+
+# Editor / OS
+.vscode/
+.idea/
+.DS_Store
